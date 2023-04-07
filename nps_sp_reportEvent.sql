@@ -95,7 +95,9 @@ SELECT
     Remote_Server_Address,
     MS_RAS_Client_Name,
     MS_RAS_Client_Version,
-    MS_Quarantine_State
+    MS_Quarantine_State,
+    MS_RAS_Correlation_ID,
+    MS_Network_Access_Server_Type
 FROM OPENXML(@idoc, '/Event')
 WITH (
     Computer_Name nvarchar(255) './Computer-Name',
@@ -161,10 +163,9 @@ WITH (
     Remote_Server_Address nvarchar(15) './Remote-Server-Address',
     MS_RAS_Client_Name nvarchar(255) './MS-RAS-Client-Name',
     MS_RAS_Client_Version nvarchar(255) './MS-RAS-Client-Version',
-/*
-    NAP-specific information, available from NPS starting with Windows Server 2008. 
-*/
-    MS_Quarantine_State int './MS-Quarantine-State'
+    MS_Quarantine_State int './MS-Quarantine-State',
+    MS_RAS_Correlation_ID nvarchar(255) '/MS-RAS-Correlation-ID',
+    MS_Network_Access_Server_Type nvarchar(255) '/MS-Network-Access-Server-Type'
    )
 
 EXEC sp_xml_removedocument @idoc

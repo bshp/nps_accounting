@@ -73,7 +73,9 @@ CREATE TABLE [dbo].[accounting_data](
 	[Remote_Server_Address] [dbo].[ipaddress] NULL,
 	[MS_RAS_Client_Name] [nvarchar](255) NULL,
 	[MS_RAS_Client_Version] [nvarchar](255) NULL,
-	[MS_Quarantine_State] [int] NULL
+	[MS_Quarantine_State] [int] NULL,
+	[MS_RAS_Correlation_ID] [nvarchar](255) NULL,
+	[MS_Network_Access_Server_Type] [nvarchar](255) NULL
 ) ON [PRIMARY]
 
 GO
