@@ -10,4 +10,7 @@ Database Name: NPS
 2. nps_sp_reportEvent.sql
 
 Optional:
+
 nps_sp_retention.sql will cleanup (delete) any records older than the time specified. You would need to create a job in sql server to execute this on a regular basis.
+
+nps_accounting_alter_table.sql will modify an existing accounting_data table to have smaller data types and include new columns added in Server 2022, by creating a new table, copying the data, and dropping the old table.
