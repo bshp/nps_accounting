@@ -24,7 +24,6 @@ CREATE TABLE [dbo].[accounting_data](
 	[Client_Vendor] [smallint] NULL,
 	[Client_IP_Address] [dbo].[ipaddress] NULL,
 	[Client_Friendly_Name] [nvarchar](255) NULL,
-	[Event_Timestamp] [datetime2(0)] NULL,
 	[Port_Limit] [int] NULL,
 	[NAS_Port_Type] [tinyint] NULL,
 	[Connect_Info] [nvarchar](255) NULL,
