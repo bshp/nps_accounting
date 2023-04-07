@@ -137,7 +137,7 @@ WITH (
     Acct_Output_Packets int './Acct-Output-Packets',
     Acct_Terminate_Cause int './Acct-Terminate-Cause',
     Acct_Multi_Session_Id nvarchar(255) './Acct-Multi-Session-Id',
-    Acct_Link_Count int './Acct-Link-Count',
+    Acct_Link_Count smallint './Acct-Link-Count',
     Acct_Interim_Interval int './Acct-Interim-Interval',
     Tunnel_Type tinyint './Tunnel-Type',
     Tunnel_Medium_Type int './Tunnel-Medium-Type',

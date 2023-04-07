@@ -49,7 +49,7 @@ CREATE TABLE [dbo].[accounting_data](
 	[Acct_Output_Packets] [int] NULL,
 	[Acct_Terminate_Cause] [int] NULL,
 	[Acct_Multi_Session_Id] [nvarchar](255) NULL,
-	[Acct_Link_Count] [int] NULL,
+	[Acct_Link_Count] [smallint] NULL,
 	[Acct_Interim_Interval] [int] NULL,
 	[Tunnel_Type] [tinyint] NULL,
 	[Tunnel_Medium_Type] [int] NULL,
