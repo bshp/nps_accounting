@@ -31,7 +31,7 @@ SET @record_timestamp = SYSDATETIME()
 
 INSERT accounting_data
 SELECT
-    @record_timestamp,
+    COALESCE(Event_Timestamp,@record_timestamp),
     Computer_Name,
     Packet_Type,
     [User_Name],
@@ -46,7 +46,6 @@ SELECT
     Client_Vendor,
     Client_IP_Address,
     Client_Friendly_Name,
-    Event_Timestamp,
     Port_Limit,
     NAS_Port_Type,
     Connect_Info,
