@@ -10,21 +10,19 @@ GO
 -- =============================================
 -- Author:		<Jason E.>
 -- Create date: <03/18/2016>
--- Description:	<Delete old accoutning data>
+-- Description:	<Delete old accounting data>
 -- =============================================
-CREATE PROCEDURE [dbo].[record_cleanup_3yr]
-
+CREATE PROCEDURE [dbo].[record_cleanup]
+(
+    @retention_yr datetime2(3) NULL = DATEADD(YEAR,-3,SYSDATETIME())
+)
 AS
 
 SET NOCOUNT ON
 
-DECLARE @retention_yr datetime
-
-SET @retention_yr = DATEADD(YEAR, -3, GETDATE())
-
 DELETE
 FROM NPS.dbo.accounting_data
-WHERE NPS.dbo.accounting_data.timestamp <= @retention_yr
+WHERE NPS.dbo.accounting_data.[timestamp] <= @retention_yr
 
 SET NOCOUNT OFF
 
