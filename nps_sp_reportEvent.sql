@@ -1,20 +1,21 @@
-USE [NPS]
+USE [NPS];
 GO
-
-SET ANSI_NULLS OFF
+    
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[report_event]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
+    DROP PROCEDURE [dbo].[report_event]
 GO
-
-SET QUOTED_IDENTIFIER ON
+    
+SET ANSI_NULLS OFF;
 GO
-
+SET QUOTED_IDENTIFIER ON;
+GO
 
 CREATE PROCEDURE [dbo].[report_event]
     @doc ntext
 AS
-
-SET NOCOUNT ON
-
-DECLARE @idoc int
+    
+SET NOCOUNT ON;
+DECLARE @idoc int;
 EXEC sp_xml_preparedocument @idoc OUTPUT, @doc
 
 /*
@@ -25,13 +26,12 @@ EXEC sp_xml_preparedocument @idoc OUTPUT, @doc
     Refer to IAS-Formatted Log Files in Online Help on www.technet.com for information on interpreting these values.
 */
 
-DECLARE @record_timestamp datetime2(3)
-
-SET @record_timestamp = SYSDATETIME()
+DECLARE @record_timestamp datetime;
+SET @record_timestamp = GETUTCDATE();
 
 INSERT accounting_data
 SELECT
-    COALESCE(Event_Timestamp,@record_timestamp),
+    @record_timestamp,
     Computer_Name,
     Packet_Type,
     [User_Name],
@@ -113,7 +113,7 @@ WITH (
     Client_Vendor smallint './Client-Vendor',
     Client_IP_Address nvarchar(15) './Client-IP-Address',
     Client_Friendly_Name nvarchar(255) './Client-Friendly-Name',
-    Event_Timestamp datetime2(0) './Event-Timestamp',
+    Event_Timestamp datetime './Event-Timestamp',
     Port_Limit int './Port-Limit',
     NAS_Port_Type tinyint './NAS-Port-Type',
     Connect_Info nvarchar(255) './Connect-Info',
@@ -126,16 +126,16 @@ WITH (
     Session_Timeout int './Session-Timeout',
     Idle_Timeout int './Idle-Timeout',
     Termination_Action int './Termination-Action',
-    EAP_Friendly_Name nvarchar(150) './EAP-Friendly-Name',
+    EAP_Friendly_Name nvarchar(255) './EAP-Friendly-Name',
     Acct_Status_Type int './Acct-Status-Type',
     Acct_Delay_Time int './Acct-Delay-Time',
-    Acct_Input_Octets int './Acct-Input-Octets',
-    Acct_Output_Octets int './Acct-Output-Octets',
+    Acct_Input_Octets bigint './Acct-Input-Octets',
+    Acct_Output_Octets bigint './Acct-Output-Octets',
     Acct_Session_Id nvarchar(255) './Acct-Session-Id',
     Acct_Authentic int './Acct-Authentic',
     Acct_Session_Time int './Acct-Session-Time',
-    Acct_Input_Packets int './Acct-Input-Packets',
-    Acct_Output_Packets int './Acct-Output-Packets',
+    Acct_Input_Packets bigint './Acct-Input-Packets',
+    Acct_Output_Packets bigint './Acct-Output-Packets',
     Acct_Terminate_Cause int './Acct-Terminate-Cause',
     Acct_Multi_Session_Id nvarchar(255) './Acct-Multi-Session-Id',
     Acct_Link_Count smallint './Acct-Link-Count',
@@ -170,5 +170,8 @@ WITH (
 EXEC sp_xml_removedocument @idoc
 
 SET NOCOUNT OFF
-
+GO
+SET QUOTED_IDENTIFIER OFF 
+GO
+SET ANSI_NULLS ON 
 GO
