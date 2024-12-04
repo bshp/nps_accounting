@@ -82,7 +82,7 @@ CREATE TABLE [dbo].[accounting_data](
 	[MS_Quarantine_State] [int] NULL,
 	[MS_RAS_Correlation_ID] [nvarchar](255) NULL,
 	[MS_Network_Access_Server_Type] [nvarchar](255) NULL,
-	CONSTRAINT [PK_accounting_data_tmp] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_accounting_data] PRIMARY KEY CLUSTERED 
 	(
 		[id] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = ON, DATA_COMPRESSION = PAGE) ON [PRIMARY]
