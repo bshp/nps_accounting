@@ -7,9 +7,16 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+IF EXISTS (SELECT * FROM dbo.systypes WHERE name = N'ipaddress')
+exec sp_droptype N'ipaddress'
+GO
+
+EXEC sp_addtype N'ipaddress', N'nvarchar (15)', N'not null'
+GO
+
 CREATE TABLE [dbo].[accounting_data](
 	[id] [bigint] IDENTITY(1,1) NOT NULL,
-	[timestamp] [datetime2(3)] NOT NULL,
+	[timestamp] [datetime] NOT NULL,
 	[Computer_Name] [nvarchar](255) NOT NULL,
 	[Packet_Type] [tinyint] NOT NULL,
 	[User_Name] [nvarchar](255) NULL,
@@ -17,12 +24,12 @@ CREATE TABLE [dbo].[accounting_data](
 	[Called_Station_Id] [nvarchar](255) NULL,
 	[Calling_Station_Id] [nvarchar](255) NULL,
 	[Callback_Number] [nvarchar](255) NULL,
-	[Framed_IP_Address] [dbo].[ipaddress] NULL,
+	[Framed_IP_Address] [ipaddress] NULL,
 	[NAS_Identifier] [nvarchar](255) NULL,
-	[NAS_IP_Address] [dbo].[ipaddress] NULL,
-	[NAS_Port] [int] NULL,
+	[NAS_IP_Address] [ipaddress] NULL,
+	[NAS_Port] [bigint] NULL,
 	[Client_Vendor] [smallint] NULL,
-	[Client_IP_Address] [dbo].[ipaddress] NULL,
+	[Client_IP_Address] [ipaddress] NULL,
 	[Client_Friendly_Name] [nvarchar](255) NULL,
 	[Port_Limit] [int] NULL,
 	[NAS_Port_Type] [tinyint] NULL,
@@ -69,7 +76,7 @@ CREATE TABLE [dbo].[accounting_data](
 	[Proxy_Policy_Name] [nvarchar](255) NULL,
 	[Provider_Type] [tinyint] NULL,
 	[Provider_Name] [nvarchar](255) NULL,
-	[Remote_Server_Address] [dbo].[ipaddress] NULL,
+	[Remote_Server_Address] [ipaddress] NULL,
 	[MS_RAS_Client_Name] [nvarchar](255) NULL,
 	[MS_RAS_Client_Version] [nvarchar](255) NULL,
 	[MS_Quarantine_State] [int] NULL,
